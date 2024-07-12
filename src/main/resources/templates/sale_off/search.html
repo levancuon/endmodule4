@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<h2>Danh sách giao dịch</h2>
+<div th:text="${messenger}"></div>
+<a href="/transaction/create">Thêm mới</a>
+<form action="/transaction/search" method="get">
+    <select name="serviceType" >
+        <option value="">Chọn loại bất động sản</option>
+        <option  value="Đất" th:selected="${serviceType.equals('Đất')}">Đất</option>
+        <option  value="Nhà và Đất" th:selected="${serviceType.equals('Nhà và Đất')}">Nhà và Đất</option>
+    </select>
+    <input type="text" name="name" placeholder="Tên khách hàng" th:value="${name}">
+    <button>Tìm kiếm</button>
+</form>
+<table border="1" >
+    <tr>
+        <th>Mã giao dịch</th>
+        <th>Tên khách hàng</th>
+        <th>Ngày giao dịch</th>
+        <th>Loại dịch vụ</th>
+        <th>Đơn giá (VND/m2)</th>
+        <th>Diện tích (m2)</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="t: ${transactionDTOS}">
+        <td th:text="${t.code}"></td>
+        <td th:text="${t.customer.name}"></td>
+        <td th:text="${t.transactionDate}"></td>
+        <td th:text="${t.serviceType}"></td>
+        <td th:text="${t.price}"></td>
+        <td th:text="${t.area}"></td>
+        <td><a th:href="@{/transaction/detail/{id}(id=${t.id})}">chi tiết</a></td>
+    </tr>
+</table>
+</body>
+</html>

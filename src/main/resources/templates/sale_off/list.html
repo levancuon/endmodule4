@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<h2>Danh sách khuyến mãi</h2>
+<div th:text="${messenger}"></div>
+<a th:href="@{/sale_off/create}">Thêm mới</a>
+<form th:action="@{/sale_off/search}" method="get">
+    <select name="serviceType" >
+        <option value="">Chọn loại bất động sản</option>
+        <option  value="Đất" >Đất</option>
+        <option  value="Nhà và Đất" >Nhà và Đất</option>
+    </select>
+    <input type="text" name="name" placeholder="Tên khách hàng">
+    <button>Tìm kiếm</button>
+</form>
+<table border="1" >
+    <tr>
+        <th>Tiêu đề</th>
+        <th>Thời gian bắt đầu</th>
+        <th>Thời gian kết thúc</th>
+        <th>Mức giảm giá</th>
+        <th>Chi tiết</th>
+        <th>Sửa</th>
+        <th>Xóa</th>
+    </tr>
+    <tr th:each="t: ${list}">
+        <td th:text="${t.title}"></td>
+        <td th:text="${t.startDay}"></td>
+        <td th:text="${t.endDay}"></td>
+        <td th:text="${t.discount}"></td>
+        <td th:text="${t.detail}"></td>
+        <td><a th:href="@{/sale_off/detail/{id}(id=${t.id})}">Sửa</a></td>
+        <td >Xóa</td>
+    </tr>
+</table>
+</body>
+</html>
